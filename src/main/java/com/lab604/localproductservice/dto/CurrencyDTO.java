@@ -2,7 +2,6 @@ package com.lab604.localproductservice.dto;
 
 import lombok.*;
 
-import java.util.Currency;
 
 @Setter
 @Getter
@@ -10,5 +9,5 @@ import java.util.Currency;
 @NoArgsConstructor
 public class CurrencyDTO {
     @NonNull
-    Currency currency;
+    String currency;
 }

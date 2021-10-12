@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PriceExchangeDTO {
-    private Double priceInUSD;
-    private String currency;
+public class PriceResultDTO {
+    @NonNull
+    private Double priceInCurrency;
 }

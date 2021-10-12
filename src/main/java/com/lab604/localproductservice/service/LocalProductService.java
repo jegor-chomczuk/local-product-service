@@ -1,9 +1,6 @@
 package com.lab604.localproductservice.service;
 
-import com.lab604.localproductservice.dto.CurrencyDTO;
-import com.lab604.localproductservice.dto.LocalProductDTO;
-import com.lab604.localproductservice.dto.PriceExchangeDTO;
-import com.lab604.localproductservice.dto.Product;
+import com.lab604.localproductservice.dto.*;
 import com.lab604.localproductservice.interfaces.ILocalProductService;
 import com.lab604.localproductservice.proxy.PriceExchangeServiceProxy;
 import com.lab604.localproductservice.proxy.ProductServiceProxy;
@@ -19,19 +16,10 @@ public class LocalProductService implements ILocalProductService {
     @Autowired
     PriceExchangeServiceProxy priceExchangeServiceProxy;
 
-    public LocalProductDTO getLocalProduct(Long id, CurrencyDTO currency){
+    public LocalProductDTO getLocalProduct(Long id, CurrencyDTO currency) {
         Product product = productServiceProxy.findById(id);
         PriceExchangeDTO priceExchangeDTO = new PriceExchangeDTO(product.getPriceInUSD(), currency.getCurrency());
-        Double localPrice = priceExchangeServiceProxy.exchangePrice(priceExchangeDTO);
-        return new LocalProductDTO(product.getName(), localPrice);
+        PriceResultDTO localPrice = priceExchangeServiceProxy.exchangePrice(priceExchangeDTO);
+        return new LocalProductDTO(product.getName(), localPrice.getPriceInCurrency());
     }
-
-    public Product getProduct(Long id){
-        return productServiceProxy.findById(id);
-    }
-
-    public Double getPrice(PriceExchangeDTO priceExchangeDTO){
-        return priceExchangeServiceProxy.exchangePrice(priceExchangeDTO);
-    }
-
 }
